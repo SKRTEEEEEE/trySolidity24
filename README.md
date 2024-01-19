@@ -1,6 +1,6 @@
-# Markdown Basic Template
+# Try Solidity 2024
 
-Template basico de markdown, especializado para proyectos en desarollo, especialmente para interactuar con Blockchains.
+Repositorio para pruebas de solidity, preparacion de cursos, contratos basicos, etc...
 
 ## [Descripción del Proyecto](markdown/descripcion.md)
 

@@ -1,0 +1,8 @@
+# truffle
+
+test
+migrations
+build
+bin
+truffle-config.js
+.gitkeep
