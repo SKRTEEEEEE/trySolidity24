@@ -6,3 +6,6 @@ build
 bin
 truffle-config.js
 .gitkeep
+
+# remix 
+artifacts
