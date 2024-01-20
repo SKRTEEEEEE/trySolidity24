@@ -14,7 +14,9 @@ Repositorio para pruebas de solidity, preparacion de cursos, contratos basicos, 
 
 ### Equipo
 
-#### Miembros del Equipo
+#### Desarollador
+
+- Adan Reh
 
 #### Agradecimientos
 

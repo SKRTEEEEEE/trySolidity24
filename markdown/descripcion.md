@@ -2,26 +2,31 @@
 
 ## Objetivos
 
+- Aprender Solidity.
+- Aprender Hardhat
+
 ### Funcionalidades Principales
 
 ### Casos de Uso
 
 ## Componentes del Proyecto
 
-### TokenizeProperty (Ejemplo1)
+### Conquer
 
 #### Propósito
 
-Este contrato permite la creación y gestión de tokens no fungibles que representan propiedades.
+Curso para aprender lo basico sobre contratos
 
-#### Funcionalidades
+#### Contratos y sus funcionalidades
 
-- Creación de nuevos tokens NFT asociados a propiedades.
-- Transferencia de propiedad de un token a otro usuario.
-- Consulta del propietario actual de un token NFT.
+- TaskList -> crea una lista.
+- Variables -> principales variables.
+- Visibilidad -> visibilidad entre contratos.
 
-### CrossDestinationMinter (Ej2)
+### instanciarContratos
 
 #### Propósito
 
-#### Funcionalidades
+Curso para practicar a interactuar entre contratos
+
+#### Contratos y sus funcionalidades
