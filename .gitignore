@@ -9,3 +9,5 @@ truffle-config.js
 
 # remix 
 artifacts
+.deps
+.learneth
