@@ -24,8 +24,8 @@ contract CompraNFT {
     }    
 
     // Función para hacer safeMint desde el contrato intermediario
-    function safeMintTienda(uint256 tokenId) public soloAdmin {
+    function safeMintTienda() public soloAdmin {
         // Usa la función safeMint del contrato NFT de la colección
-        CreateNFTCollection(direccionColeccionNFT).safeMint(msg.sender , tokenId);
+        CreateNFTCollection(direccionColeccionNFT).safeMint(msg.sender);
     }
 }
