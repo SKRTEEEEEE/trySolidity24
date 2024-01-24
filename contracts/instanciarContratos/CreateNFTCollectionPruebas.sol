@@ -4,21 +4,30 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts@4.6.0/utils/Counters.sol";
 // import "@openzeppelin/contracts/access/Ownable.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./GestionUsuarios.sol";
 //https://ipfs.io/ipfs/QmWYf5oBuk7ej8nPNgvmNy1P2tHwm6X4ZR5McMagxPSiNt/
 
 
 contract CreateNFTCollectionPruebas is ERC721 {
     using Counters for Counters.Counter;
-    address private gestionUsuarios = 0xd9145CCE52D386f254917e481eB44e9943F39138;//<-Provar en private para mas sec
+    AggregatorV3Interface internal priceFeed;
+    address private gestionUsuarios = 0xd3Aff0855aA92fa8A4D5575194CC6AC7E94677a4;//<-Provar en private para mas sec
     string private baseURI = "https://ipfs.io/ipfs/QmWYf5oBuk7ej8nPNgvmNy1P2tHwm6X4ZR5McMagxPSiNt/";
     uint256 public maxTokenSupply;
+    // uint256 public priceToken = calculateETHAmountFromUSD(2);
     Counters.Counter public tokenIdCounter;
     
     
     constructor( string memory _collectionName, string memory _tokenAbbreviation, uint256 _maxTokenSupply) ERC721(_collectionName, _tokenAbbreviation) {
         // gestionUsuarios = _direccionGestionUsuarios;
         // baseURI = _ipfsBaseURI;
+         /**
+        * Network: Sepolia
+        * Aggregator: ETH/USD
+        * Address: 0x694AA1769357215DE4FAC081bf1f309aDC325306
+        */
+        priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
         require(_maxTokenSupply > 0, "La cantidad maxima de NFTs debe ser mayor que cero");
         maxTokenSupply = _maxTokenSupply;
     }
@@ -27,15 +36,45 @@ contract CreateNFTCollectionPruebas is ERC721 {
         _;
     }
 
+
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }
+    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
+        (
+            /*uint80 roundID*/,
+            int price,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = priceFeed.latestRoundData();
+        return price;
+    }
+    function calculateETHAmountFromUSD() public view returns (uint) {
+  
+    uint256 price = uint256(getChainlinkDataFeedLatestAnswer());
+    // Asegúrate de que el precio no sea cero para evitar la división por cero
+    require(price > 0, "Precio de ETH/USD no valido");
 
-    function safeMint(address to) public soloAdmin {
+    // Calcular la cantidad de ETH equivalente a 2 USD
+    uint ethAmount = 2 * 1e18 / uint(price);  // Multiplica por 1e18 para manejar decimales en el precio
+    
+    
+    return ethAmount;
+    }
+
+
+    function safeMintForAdmins(address to) public soloAdmin {
         tokenIdCounter.increment();
         require(tokenIdCounter.current() <= maxTokenSupply, "Se alcanzo la cantidad maxima de NFTs");
         uint256 tokenId = tokenIdCounter.current();
         _safeMint(to, tokenId);
-
+    }
+    function mintPaying() public payable {
+        require(msg.value >= calculateETHAmountFromUSD(), "El monto enviado no cubre el costo de mint");//<-Minimo 10wei
+        tokenIdCounter.increment();
+        require(tokenIdCounter.current() <= maxTokenSupply, "Se alcanzo la cantidad maxima de NFTs");
+        uint256 tokenId = tokenIdCounter.current();
+        _safeMint(msg.sender, tokenId);
     }
 }
