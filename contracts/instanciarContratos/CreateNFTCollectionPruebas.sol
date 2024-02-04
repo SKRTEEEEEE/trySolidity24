@@ -15,6 +15,7 @@ contract CreateNFTCollectionPruebas is ERC721 {
     address private gestionUsuarios = 0xd3Aff0855aA92fa8A4D5575194CC6AC7E94677a4;//<-Provar en private para mas sec
     string private baseURI = "https://ipfs.io/ipfs/QmWYf5oBuk7ej8nPNgvmNy1P2tHwm6X4ZR5McMagxPSiNt/";
     uint256 public maxTokenSupply;
+    uint8 public priceInUSD = 2;
     // uint256 public priceToken = calculateETHAmountFromUSD(2);
     Counters.Counter public tokenIdCounter;
     
@@ -50,18 +51,14 @@ contract CreateNFTCollectionPruebas is ERC721 {
         ) = priceFeed.latestRoundData();
         return price;
     }
-    function calculateETHAmountFromUSD() public view returns (uint) {
-  
+function calculateETHAmountFromUSD() public view returns (uint) {
     uint256 price = uint256(getChainlinkDataFeedLatestAnswer());
-    // Asegúrate de que el precio no sea cero para evitar la división por cero
-    require(price > 0, "Precio de ETH/USD no valido");
-
+    
     // Calcular la cantidad de ETH equivalente a 2 USD
-    uint ethAmount = 2 * 1e18 / uint(price);  // Multiplica por 1e18 para manejar decimales en el precio
-    
-    
+    uint ethAmount1 = (priceInUSD * 1e18 ) /  price;  // Multiplica por 1e18 para manejar decimales en el precio
+    uint ethAmount = ethAmount1 * 1e8;
     return ethAmount;
-    }
+}
 
 
     function safeMintForAdmins(address to) public soloAdmin {
@@ -71,7 +68,8 @@ contract CreateNFTCollectionPruebas is ERC721 {
         _safeMint(to, tokenId);
     }
     function mintPaying() public payable {
-        require(msg.value >= calculateETHAmountFromUSD(), "El monto enviado no cubre el costo de mint");//<-Minimo 10wei
+        uint256 ethAmount = calculateETHAmountFromUSD();
+        require(msg.value >= ethAmount, "El monto enviado no cubre el costo de mint");//<-Minimo 10gwei
         tokenIdCounter.increment();
         require(tokenIdCounter.current() <= maxTokenSupply, "Se alcanzo la cantidad maxima de NFTs");
         uint256 tokenId = tokenIdCounter.current();

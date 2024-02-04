@@ -1,22 +1,24 @@
 # Contratos Desplegados
 
-## Contrato Desplegado en la Cadena de Origen
+## Contrato Desplegado en la Cadena Principal(sepolia)
 
-### 1.   Can Valdes 2
+### 1.   Can Lola
+   Can Lola, lola, 6ud
+   Actualmente solo la cuenta1 tiene admin, y es la desplegadora de Gestion Usuarios
    > 1 desplegado *(id 1)*
 
-   **CanValdesNFTs**
+   **CreateNFTCollectionPruebas**
    - Dirección del Contrato[^1]:
-   0x32ba47d8554f49365f16c6809a44675c7dc01b12 
+   0x46C3Bc366E4A28f4165e8a90430bc7fe7727cC11
    - Estado: Activo
-   - Propósito: Practicar IPFS.
+   - Propósito: Practicar IPFS, minteo de tokens con funcionalidad de pagar, integracion en web....
+   - Funcionalidades: Permite mintear a los usuarios pagando un precio fijo de 2USD y a los admin mintear de forma gratuita mandando a la billetera que mas deseen
 
-   **Ejemplo2**
+   **Gestion usuarios**
    - Dirección del Contrato[^1]: 
-   0x242eedf22c038534ad957686fbf410ef035913cc
-   0x242eEDF22C038534ad957686Fbf410Ef035913cC
+   0xd3Aff0855aA92fa8A4D5575194CC6AC7E94677a4
    - Estado: Activo
-   - Propósito: Facilitar la compra de tokens NFT en la cadena de origen utilizando la red Fuji de Chainlink para obtener tasas de cambio actualizadas.
+   - Propósito: Facilitar la gestion de usuarios con roles.
 
 ## Contratos Desplegados en la Cadena de Destino (Fuji)
 
