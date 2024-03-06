@@ -1,10 +1,8 @@
 # Try Solidity 2024
 
-Repositorio para pruebas de solidity, preparacion de cursos, contratos basicos, etc...
+Repositorio para pruebas de solidity, pruebas/preparacion de cursos-roadmaps, test de contratos basicos, etc...
 
 ## [Descripción del Proyecto](markdown/descripcion.md)
-
-## [Proceso](markdown/proceso.md)
 
 ## [Contratos Desplegados](markdown/contratos_desplegados.md)
 
